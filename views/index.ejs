@@ -8,20 +8,32 @@
 </head>
 <body>
     <form id="messageForm">
-        <input type="text" name="messageInput" placeholder="Nachricht">
+        <input type="text" id="messageInput" placeholder="Nachricht">
         <input type="submit" value="Senden">
     </form>
 
+    <pre id="chat">
+
+    </pre>
     <script>
         const socket = io();
         const messageForm = document.getElementById('messageForm')
-
-        messageForm.EventListener('submit', function(event) {
-            event.preventDefault()
-            const messageInput = document.getElementById('messageInput').value
-            socket.emit('message', messageInput)
+        const messageInput = document.getElementById('messageInput')
+        const chat = document.getElementById('chat')
+        socket.on('chatmessage', function(message){
+            update(message)
         })
+
+        messageForm.addEventListener('submit', function(event) {
+            event.preventDefault()
+            const message = messageInput.value
+            socket.emit('chatmessage', message)
+            messageInput.value = ''
+        })
+
+        function update(message){
+            chat.innerHTML += message + "\n"
+        }
     </script>
-    
 </body>
 </html>
