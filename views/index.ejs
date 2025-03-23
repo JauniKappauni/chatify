@@ -7,13 +7,18 @@
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-    <form action="/" method="post">
+    <form id="messageForm">
         <input type="text" placeholder="Nachricht">
         <input type="submit" value="Senden">
     </form>
 
     <script>
         const socket = io();
+        const messageForm = document.getElementById('messageForm')
+
+        messageForm.EventListener('submit', function(event) {
+            event.preventDefault()
+        })
     </script>
     
 </body>
