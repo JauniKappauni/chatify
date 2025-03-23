@@ -8,7 +8,7 @@
 </head>
 <body>
     <form id="messageForm">
-        <input type="text" placeholder="Nachricht">
+        <input type="text" name="messageInput" placeholder="Nachricht">
         <input type="submit" value="Senden">
     </form>
 
@@ -18,6 +18,8 @@
 
         messageForm.EventListener('submit', function(event) {
             event.preventDefault()
+            const messageInput = document.getElementById('messageInput').value
+            socket.emit('message', messageInput)
         })
     </script>
     
