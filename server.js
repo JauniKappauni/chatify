@@ -8,6 +8,17 @@ const port = 3000
 
 app.set('view engine', 'ejs')
 
+io.on('connection', (socket) => {
+    console.log('A user connected')
+
+    socket.on('chatmessage', (message) => {
+        io.emit('chatmessage', message)
+    })
+    socket.on('disconnect', () => {
+        console.log('A user disconnected')
+    })
+})
+
 
 app.get('/', (req, res) => {
     res.render('index')
